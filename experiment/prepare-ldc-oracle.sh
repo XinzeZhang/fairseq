@@ -50,3 +50,9 @@ for L in $src $tgt; do
         python $BPEROOT/apply_bpe.py -c $BPE_CODE < $word/$f > $bpe/$f
     done
 done
+
+TEXT=experiment/ldc/oracle.bpe
+fairseq-preprocess --source-lang en --target-lang cn \
+    --trainpref $TEXT/train --validpref $TEXT/valid --testpref $TEXT/test \
+    --destdir data-bin/ldc.oracle.bpe.en-cn \
+    --workers 20
