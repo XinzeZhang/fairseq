@@ -1,4 +1,4 @@
-CUDA_VISIBLE_DEVICES=0 fairseq-train --fp16 \
+CUDA_VISIBLE_DEVICES=0 fairseq-train \
     data-bin/ldc.oracle.bpe.en-cn \
     --arch transformer --share-decoder-input-output-embed \
     --optimizer adam --adam-betas '(0.9, 0.98)' --clip-norm 0.0 \
@@ -11,5 +11,5 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train --fp16 \
     --eval-bleu-detok moses \
     --eval-bleu-remove-bpe \
     --eval-bleu-print-samples \
-    --best-checkpoint-metric bleu --maximize-best-checkpoint-metric
-    
+    --best-checkpoint-metric bleu --maximize-best-checkpoint-metric \
+    --restore-file 'checkpoint_last.pt'
