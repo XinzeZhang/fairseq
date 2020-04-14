@@ -1,31 +1,31 @@
 echo 'bpeare LDC and NIST bpe dataset'
 
-SCRIPTS=translation/mosesdecoder/scripts
+SCRIPTS=experiment/translation/mosesdecoder/scripts
 TOKENIZER=$SCRIPTS/tokenizer/tokenizer.perl
 LC=$SCRIPTS/tokenizer/lowercase.perl
 CLEAN=$SCRIPTS/training/clean-corpus-n.perl
-BPEROOT=translation/subword-nmt/subword_nmt
+BPEROOT=experiment/translation/subword-nmt/subword_nmt
 BPE_TOKENS=60000
 
 src=en
 tgt=cn
 lang=en-cn
-bpe=ldc/oracle.bpe
-word=ldc/oracle.word
+bpe=experiment/ldc/oracle.bpe
+word=experiment/ldc/oracle.word
 
 mkdir -p $bpe $word
 
 echo "pre-processing train data..."
 # merge ldc and nist123 as training data of oracle model
 for l in $src $tgt; do
-    raw=ldc/ldc_raw/train.cn-en.$l
-    nist=ldc/nist_para/nist.$l.123
+    raw=experiment/ldc/ldc_raw/train.cn-en.$l
+    nist=experiment/ldc/nist_para/nist.$l.123
     cat $raw $nist > $word/train.$l
 done
 
 echo "pre-processing valid/test data..."
 for l in $src $tgt; do
-    nist=ldc/nist_para/nist.$l.0
+    nist=experiment/ldc/nist_para/nist.$l.0
     cat $nist > $word/valid.$l
     cat $nist > $word/test.$l
 done
