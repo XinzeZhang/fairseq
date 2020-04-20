@@ -1,5 +1,5 @@
-CUDA_VISIBLE_DEVICES=3 fairseq-train --fp16  \
-    data-bin/ldc.oracle.bpe.en-cn \
+CUDA_VISIBLE_DEVICES=2,3 fairseq-train --fp16  \
+    data-bin/ldc.nist.bpe.en-cn \
     --arch transformer --share-decoder-input-output-embed \
     --optimizer adam --adam-betas '(0.9, 0.98)' --clip-norm 0.0 \
     --lr 5e-4 --lr-scheduler inverse_sqrt --warmup-updates 4000 \
@@ -13,4 +13,5 @@ CUDA_VISIBLE_DEVICES=3 fairseq-train --fp16  \
     --eval-bleu-print-samples \
     --best-checkpoint-metric bleu \
     --no-epoch-checkpoints \
-    --maximize-best-checkpoint-metric 
+    --maximize-best-checkpoint-metric \
+    --patience 5
