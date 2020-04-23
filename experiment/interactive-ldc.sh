@@ -1,6 +1,7 @@
  MODEL_DIR=data-bin/ldc.oracle.bpe.en-cn
  fairseq-interactive \
-    --path $MODEL_DIR/checkpoint_best.ldc.pt data-bin/ldc.oracle.bpe.en-cn \
+   $MODEL_DIR \
+    --path $MODEL_DIR/checkpoint_best.ldc.pt \
     --beam 10 \
     --tokenizer moses \
     --bpe subword_nmt --bpe-codes experiment/ldc/oracle.bpe/code \
