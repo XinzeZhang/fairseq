@@ -1,4 +1,4 @@
-CUDA_VISIBLE_DEVICES=0 fairseq-train --fp32 \
+CUDA_VISIBLE_DEVICES=0 fairseq-train \
     data-bin/ldc.forward.word.cn-en \
     --arch lstm_luong_wmt_en_de --share-decoder-input-output-embed \
     --optimizer adam --adam-betas '(0.9, 0.98)' --clip-norm 0.0 \
@@ -16,4 +16,5 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train --fp32 \
     --maximize-best-checkpoint-metric \
     --max-source-positions 80 \
     --max-target-positions 80 \
+    --save-dir checkpoints/ldc-forward
     --patience 5 
