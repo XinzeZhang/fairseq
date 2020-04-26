@@ -1,4 +1,4 @@
-echo 'bpeare LDC and NIST bpe dataset'
+echo 'prepare LDC and NIST bpe dataset'
 
 SCRIPTS=experiment/translation/mosesdecoder/scripts
 TOKENIZER=$SCRIPTS/tokenizer/tokenizer.perl
