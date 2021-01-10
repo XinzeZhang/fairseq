@@ -9,7 +9,9 @@ src=cn
 tgt=en
 lang=cn-en
 
-word=experiment/ldc/forward.word
+task=forward.word.join
+
+word=experiment/ldc/$task
 
 mkdir -p $word
 
@@ -46,8 +48,9 @@ fairseq-preprocess --source-lang cn --target-lang en \
     --trainpref $word/train --validpref $word/valid --testpref $word/test \
     --nwordssrc 30000 \
     --nwordstgt 30000 \
-    --destdir data-bin/ldc.forward.word.cn-en \
-    --workers 16
+    --destdir data-bin/ldc.$task.cn-en \
+    --workers 16 \
+    --joined-dictionary
 
 # echo "bpe train, valid, test..."
 # TRAIN=$word/train.en-cn
