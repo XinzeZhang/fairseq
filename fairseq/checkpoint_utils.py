@@ -169,6 +169,9 @@ def load_checkpoint_to_cpu(path, arg_overrides=None):
             f, map_location=lambda s, l: default_restore_location(s, "cpu")
         )
 
+    if state["args"] is None:
+        state["args"] = state['cfg'].task
+
     args = state["args"]
     if arg_overrides is not None:
         for arg_name, arg_val in arg_overrides.items():
@@ -201,6 +204,7 @@ def load_model_ensemble_and_task(filenames, arg_overrides=None, task=None, stric
         if not PathManager.exists(filename):
             raise IOError("Model file not found: {}".format(filename))
         state = load_checkpoint_to_cpu(filename, arg_overrides)
+
 
         args = state["args"]
         if task is None:
