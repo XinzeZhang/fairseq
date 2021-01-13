@@ -9,7 +9,9 @@ src=cn
 tgt=en
 lang=cn-en
 
-word=experiment/ldc/forward.word
+task=forward.word.join
+
+word=experiment/ldc/$task
 
 mkdir -p $word
 
@@ -21,14 +23,14 @@ for l in $src $tgt; do
 done
 
 echo "pre-processing valid data..."
-#  using nist06 as validation data of forward model
-nist06cn=experiment/ldc/ldc_data/nist06/nist06.clean.cn
-cat $nist06cn > $word/valid.cn
-nist06en=experiment/ldc/ldc_data/nist06/nist06.clean.en
-cat ${nist06en}0 > $word/valid.en
+#  using nist02 as validation data of forward model
+nist02cn=experiment/ldc/ldc_data/nist02/nist02.clean.cn
+cat $nist02cn > $word/valid.cn
+nist02en=experiment/ldc/ldc_data/nist02/nist02.clean.en
+cat ${nist02en}0 > $word/valid.en
 for i in 0 1 2 3; do
-    nist06eni=${nist06en}$i
-    cat $nist06eni > $word/valid.en$i
+    nist02eni=${nist02en}$i
+    cat $nist02eni > $word/valid.en$i
 done
 
 echo "pre-processing test data..."
@@ -46,8 +48,9 @@ fairseq-preprocess --source-lang cn --target-lang en \
     --trainpref $word/train --validpref $word/valid --testpref $word/test \
     --nwordssrc 30000 \
     --nwordstgt 30000 \
-    --destdir data-bin/ldc.forward.word.cn-en \
-    --workers 16
+    --destdir data-bin/ldc.$task.cn-en \
+    --workers 16 \
+    --joined-dictionary
 
 # echo "bpe train, valid, test..."
 # TRAIN=$word/train.en-cn
