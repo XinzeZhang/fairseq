@@ -1,9 +1,9 @@
 echo 'prepare LDC and NIST bpe dataset'
 
-SCRIPTS=experiment/translation/mosesdecoder/scripts
-TOKENIZER=$SCRIPTS/tokenizer/tokenizer.perl
-LC=$SCRIPTS/tokenizer/lowercase.perl
-CLEAN=$SCRIPTS/training/clean-corpus-n.perl
+# SCRIPTS=experiment/translation/mosesdecoder/scripts
+# TOKENIZER=$SCRIPTS/tokenizer/tokenizer.perl
+# LC=$SCRIPTS/tokenizer/lowercase.perl
+# CLEAN=$SCRIPTS/training/clean-corpus-n.perl
 BPEROOT=experiment/translation/subword-nmt/subword_nmt
 BPE_TOKENS=60000
 
@@ -12,9 +12,9 @@ tgt=en
 lang=cn-en
 task=forward.bpe.join
 bpe=experiment/ldc/$task
-word=experiment/ldc/$task.word
+word=experiment/ldc/$task/word
 
-mkdir -p $bpe $word
+# mkdir -p $bpe $word
 
 # echo "pre-processing train data..."
 # # using ldc  as training data of oracle model
@@ -25,9 +25,9 @@ mkdir -p $bpe $word
 
 # echo "pre-processing valid data..."
 # #  using nist02 as validation data of forward model
-# nist02cn=experiment/ldc/ldc_data/nist02/nist02.clean.cn
+# nist02cn=experiment/ldc/ldc_raw/nist02/nist02.cn
 # cat $nist02cn > $word/valid.cn
-# nist02en=experiment/ldc/ldc_data/nist02/nist02.clean.en
+# nist02en=experiment/ldc/ldc_raw/nist02/nist02.en
 # cat ${nist02en}0 > $word/valid.en
 # for i in 0 1 2 3; do
 #     nist02eni=${nist02en}$i
@@ -36,16 +36,14 @@ mkdir -p $bpe $word
 
 # echo "pre-processing test data..."
 # #  using nist-avg as test data of forward model
-# nist_avg_cn=experiment/ldc/ldc_data/avg/avg.clean.cn
+# nist_avg_cn=experiment/ldc/ldc_raw/avg/avg.cn
 # cat $nist_avg_cn > $word/test.cn
-# nist_avg_en=experiment/ldc/ldc_data/avg/avg.clean.en
+# nist_avg_en=experiment/ldc/ldc_raw/avg/avg.en
 # cat ${nist_avg_en}0 > $word/test.en
 # for i in 0 1 2 3; do
 #     nist_avg_eni=${nist_avg_en}$i
 #     cat $nist_avg_eni > $word/test.en$i
 # done
-
-
 
 # echo "bpe train, valid, test..."
 # TRAIN=$word/train.cn-en
@@ -75,8 +73,8 @@ fairseq-preprocess --source-lang cn --target-lang en \
     --workers 16 \
     --joined-dictionary
 
-for i in 0 1 2 3; do
-    nist_avg_eni=${nist_avg_en}$i
-    echo "apply_bpe.py to ${nist_avg_eni}..."
-    python $BPEROOT/apply_bpe.py -c $BPE_CODE < $nist_avg_eni > $bpe/test.en$i
-done
+# for i in 0 1 2 3; do
+#     nist_avg_eni=${nist_avg_en}$i
+#     echo "apply_bpe.py to ${nist_avg_eni}..."
+#     python $BPEROOT/apply_bpe.py -c $BPE_CODE < $nist_avg_eni > $bpe/test.en$i
+# done

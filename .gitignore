@@ -129,10 +129,9 @@ data-bin/
 .vscode/settings.json
 .vscode/*
 
-# Experimental Folder
-experimental/*
+# data sec Folder
 
-experiment/translation/*
-experiment/ldc/*
-experiment/apex/
+
+data-src/translation/*
+data-src/ldc/*
 *.DS_Store
